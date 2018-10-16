@@ -13,8 +13,6 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 import datetime
 import pprint
-# The MongoDb Client Info. Here we are defining
-# our Database as TwitterStream and Collectio nane tweets
 client = MongoClient('localhost',27017)
 db = client.TwitterStream
 db.tweets.create_index("id",unique=True, dropDups=True)
@@ -38,8 +36,6 @@ class StdOutListener(StreamListener):
 
         # Load the Tweet into the variable "t"
         t = json.loads(data)
-        #print(t)
-        # Pull important data from the tweet to store in the database.
         tweet_id = collection.count()+1  # The Tweet ID from Twitter in string format
         User_name = t['user']['name']  # The username of the Tweet author
         Screen_name = t['user']['screen_name']
@@ -53,21 +49,13 @@ class StdOutListener(StreamListener):
         tweet_text = t['text']  # The entire body of the Tweet
         Url_text = t['user']['url']
         tweet_length = len(tweet_text)
-        # Convert the timestamp string given by Twitter to a date object called "created". This is more easily manipulated in MongoDB.
         tweet_date = datetime.datetime.strptime(tweet_date, '%a %b %d %H:%M:%S +0000 %Y')
 
-        # Load all of the extracted Tweet data into the variable "tweet" that will be stored into the database
         tweet = { 'id':tweet_id,'User_name':User_name, 'Screen_name':Screen_name, 'tweet_length':tweet_length,'tweet_date':tweet_date,'retweet_count':retweet_count,'User_mentions':User_mentions,'tweet_text':tweet_text,'Url_text':Url_text}
-
-        # Save the refined Tweet data to MongoDB
-        # try:
         collection.save(tweet)
-        # except errors.DuplicateKeyError:
-        #     print("Passing\n\n\n\n")
-        #     pass
-        # Optional - Print the username and text of each Tweet to your console in realtime as they are pulled from the stream
         pprint.pprint(tweet)
-
+        if tweet_id > 50:
+            return False
         return True
 
 # Prints the reason for an error to your console
@@ -79,6 +67,5 @@ class StreamTweets():
         l = StdOutListener()
         auth = OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
-
-        stream = Stream(auth, l)
-        stream.filter(track=key_Words, languages=language,async=True)
+        stream = Stream(auth, l,async=True)
+        stream.filter(track=key_Words, languages=language)

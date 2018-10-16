@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
@@ -40,5 +41,7 @@
 <div class="pagination">
     {{pagination | safe}}
 </div>
+<div><a href="{{ MEDIA_URL }}{{ tweets.csv }} download">export</a>
+<p>{{ MEDIA_URL }}{{ tweets.csv }}</p>
 </body>
 </html>

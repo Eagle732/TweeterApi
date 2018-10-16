@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.urls import path
 from twitterApi import views
+from . import settings
 
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^twitterApi/',include('twitterApi.urls')),
-    url(r'^api-auth/', include('rest_framework.urls'))
-]
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

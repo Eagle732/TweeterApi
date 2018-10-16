@@ -1,16 +1,24 @@
 from django.shortcuts import render,get_object_or_404
 import re
+import csv
 from . import formKeyWords,filterForm
 import pymongo
 from . import tweetPopulate
-from .models import Tweets
+from .models import Tweets,Filtered_Tweets
 from .tables import TweetTables
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from .filteringAlgo import filtering
 
 def index(request):
 	form = formKeyWords.TweetKeyWords()
+	# Tweets.objects.all().delete()
+	# conn = pymongo.MongoClient('localhost',27017).TwitterStream.tweets.drop()
 	return render(request,'twitterApi/index.html',{'form':form})
+
+def dowload_tweets(request):
+	print(request)
+	return HttpResponse("")
+
 
 
 def fil_tweets(request):
@@ -20,7 +28,21 @@ def fil_tweets(request):
 	if request.method == "POST":
 		filt = filterForm.tweetFilter(request.POST)
 		if filt.is_valid():
+			print("filtering")
 			TweetObject = filtering(filt)
+			val = TweetObject.all().values()
+			i = 1
+			for objects in val:
+				Filtered_Tweets(Id = i,User_name=objects['User_name'],Screen_name=objects['Screen_name'],tweet_length=objects['tweet_length'],tweet_date=objects['tweet_date'],retweet_count=objects['retweet_count'],User_mentions=objects['User_mentions'],tweet_text=objects['tweet_text'],Url_text=objects['Url_text']).save()
+				i+=1
+			to_import = list(Filtered_Tweets.objects.all().values())
+			keys = 	to_import[0].keys()
+			with open('media/tweets.csv','w') as output_file:
+				dict_w = csv.DictWriter(output_file,keys)
+				dict_w.writeheader()
+				dict_w.writerows(to_import)
+
+	TweetObject = Filtered_Tweets.objects.all()
 	print(TweetObject.count())
 	tweet_per_page = 5
 	current_page = int(request.GET.get('page',1))
@@ -28,7 +50,7 @@ def fil_tweets(request):
 	offset = limit - tweet_per_page
 	tweet_table = TweetObject[offset:limit]
 	total_tweets = TweetObject.count()
-	total_pages = total_tweets / tweet_per_page
+	total_pages = total_tweets // tweet_per_page
 
 	if total_pages % tweet_per_page != 0 :
 		total_pages += 1
@@ -39,23 +61,30 @@ def fil_tweets(request):
 def tweets_list(request):
 	all_Words = ""
 	TweetObject = Tweets.objects.all()
+	Filtered_Tweets.objects.all().delete()
 	filter_tweets = filterForm.tweetFilter()
 	if request.method == "POST":
 		form = formKeyWords.TweetKeyWords(request.POST)
 		if form.is_valid():
 			all_Words = form.cleaned_data['keyWords']
-			all_Words = re.sub('[!@$,]', '', all_Words)
+			# f = form.save(commit=False)
+			print(all_Words)
+			formKeyWords.TweetKeyWords.keyWords = ""
+			print(formKeyWords.TweetKeyWords.keyWords)
+			all_Words = re.sub('[!@$,-]', ' ', all_Words)
 			all_keyWords = [x.strip() for x in all_Words.split()]
 			conn = pymongo.MongoClient('localhost',27017)
 			db = conn.TwitterStream;
 			collections = db.tweets
-			del(form)
-			form = formKeyWords.TweetKeyWords()
+			print(all_keyWords)
+			stream_1 = tweetPopulate.StreamTweets()
 			# stream_1.stream(key_Words=all_keyWords)
-			print("Hello form")
+
 			for obj in collections.find():
 				Tweets(Id = obj['id'],User_name=obj['User_name'],Screen_name=obj['Screen_name'],tweet_length=obj['tweet_length'],tweet_date=obj['tweet_date'],retweet_count=obj['retweet_count'],User_mentions=obj['User_mentions'],tweet_text=obj['tweet_text'],Url_text=obj['Url_text']).save()
 			TweetObject = Tweets.objects.all()
+			# return http.HttpResponseRedirect('')
+
 	print(TweetObject.count())
 
 	tweet_per_page = 10
@@ -65,7 +94,7 @@ def tweets_list(request):
 	tweet_table = TweetObject[offset:limit]
 	total_tweets = TweetObject.count()
 
-	total_pages = total_tweets / tweet_per_page
+	total_pages = total_tweets // tweet_per_page
 	if total_pages % tweet_per_page != 0 :
 		total_pages += 1
 	pagination = make_pagination_html(current_page, total_pages)

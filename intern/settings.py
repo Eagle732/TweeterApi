@@ -27,20 +27,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }
 
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'rest_framework',
+    # 'rest_framework',
     'twitterApi.apps.TwitterapiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -142,3 +142,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = [os.path.join(BASE_DIR,'media')]

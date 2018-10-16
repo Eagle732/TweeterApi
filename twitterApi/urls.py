@@ -9,4 +9,5 @@ urlpatterns = [
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^tweets', views.tweets_list, name='index'),
     url(r'^filtered_tweets', views.fil_tweets, name='filtered_tweets'),
+    url(r'^download',views.dowload_tweets,name='download'),
 ]
