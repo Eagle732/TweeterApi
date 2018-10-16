@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>hello hiii</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"> -->
+        <link rel="stylesheet" href="{% static 'css/style_tables.css' %}">
+        <meta charset="utf-8">
+    </head>
+<body>
+<<h1>Tweets</h1>
+<div class="table_class">
+    <table class="container" cellspacing="0" width="100%" border=5>
+        <thead  margin="5px">
+            <th class="one_h">User_name</th>
+            <th class="two_h">Screen_name</th>
+            <th class="three_h">length</th>
+            <th class="four_h">Date</th>
+            <th class="five_h">retweet</th>
+            <th class="six_h">User_mentions</th>
+            <th class="seven_h">tweet_text</th>
+            <th class="eight_h">Url</th>
+        </thead>
+        {% for obj in tweet_table %}
+        <tr>
+            <td>{{ obj.User_name }}</td>
+            <td>{{ obj.Screen_name }}</td>
+            <td>{{ obj.tweet_length }}</td>
+            <td>{{ obj.tweet_date }}</td>
+            <td>{{ obj.retweet_count }}</td>
+            <td>{{ obj.User_mentions }}</td>
+            <td>{{ obj.tweet_text }}</td>
+            <td>{{ obj.Url_text }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="pagination">
+    {{pagination | safe}}
+</div>
+</body>
+</html>

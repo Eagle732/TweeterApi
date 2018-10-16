@@ -1,0 +1,59 @@
+<style>
+html, body {
+        margin: 0; padding: 0;
+    }
+    body {
+        min-height: 100vh;
+        background: #201c17;
+     }
+     h1{
+         color: orange;
+         text-align: center;
+         font-style: italic;
+         margin-top: 0px;
+         padding-top: 50px;
+         height: 2em;
+         text-decoration: underline;
+         font-size: 4em;
+     }
+     h2{
+         color: orange;
+         text-align: center;
+     }
+     form{
+         margin-top: 8em;
+     }
+
+     #key_label{
+         font-size: 2em;
+         margin-left: 10em;
+         color: orange;
+     }
+
+     #id_keyWords{
+         height: 3em;
+         border-radius: 5em;
+         width: 30em;
+         margin-left: 15em;
+         margin-top: 2em;
+         text-align: center;
+         font-size: 1em;
+         font-style: italic;
+         font-weight: bold;
+         background-color: #f1d794;
+     }
+
+     #btn{
+         height: 3em;
+         margin-left: 20em;
+         width: 20em;
+         text-align: center;
+         align:center;
+         background-color: orange;
+         font-size: 1em;
+         border-radius: 5em;
+         border-color: red;
+         margin-top: 1em;
+     }
+
+</style>
