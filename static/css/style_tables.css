@@ -70,14 +70,11 @@ td{
     padding-left: 30em;
 }
 .filter{
-    margin-top: 5em;
     display:grid;
     grid-template-columns: 1fr ,1fr,1fr,1fr;
     grid-template-rows: 1fr,1fr,1fr,4fr;
     grid-gap: 5px;
-    font-size: 2em;
-    font-weight: bold;
-    
+
     grid-template-areas:
         "row1_one row1_two row1_three row1_four"
         "row2_one row2_two row2_three row2_four"
@@ -86,69 +83,58 @@ td{
 
 }
 .row1_one{
-    font-weight: bold;
     justify-self: right;
     grid-area: row1_one;
     grid-column-start:1/2;
 }
 .row1_two{
-    font-weight: bold;
     justify-self: right;
     grid-area: row1_two;
     grid-column: 2 / 3;
 }
 .row1_three{
-    font-weight: bold;
     justify-self: right;
     grid-area: row1_three;
     grid-column: 3 / 4;
 }
 .row1_four{
-    font-weight: bold;
     justify-self: right;
     grid-area: row1_four;
     grid-column: 4 / 5;
 }
 .row2_one{
-    font-weight: bold;
     justify-self: right;
     grid-area: row2_one;
     grid-column-start:1;
     grid-column-end: 2;
 }
 .row2_two{
-    font-weight: bold;
     justify-self: right;
     grid-area: row2_two;
     grid-column: 2 / 3;
 }
 .row2_three{
-    font-weight: bold;
     justify-self: right;
     grid-area: row2_three;
     grid-column: 3 / 4;
 }
 .row2_four{
-    font-weight: bold;
     justify-self: right;
     grid-area: row2_four;
     grid-column: 4 / 5;
 }
 .row3_one{
-    font-weight: bold;
     justify-self: right;
     grid-area: row3_one;
     grid-column-start:1;
     grid-column-end: 2;
 }
 .row3_two{
-    font-weight: bold;
     justify-self: right;
     grid-area: row3_two;
     grid-column: 2 / 3;
 }
 .row3_three{
-    font-weight: bold;
     justify-self: right;
     align-content: center;
     align-items: center;
@@ -157,7 +143,6 @@ td{
 }
 .filter_button{
     margin-top: 3em;
-    margin-left: 5em;
     align-self: center;
     border-color: red;
     background-color: orange;
