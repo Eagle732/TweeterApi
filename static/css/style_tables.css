@@ -75,7 +75,9 @@ td{
     grid-template-columns: 1fr ,1fr,1fr,1fr;
     grid-template-rows: 1fr,1fr,1fr,4fr;
     grid-gap: 5px;
-
+    font-size: 2em;
+    font-weight: bold;
+    
     grid-template-areas:
         "row1_one row1_two row1_three row1_four"
         "row2_one row2_two row2_three row2_four"
@@ -179,4 +181,13 @@ tr td input .filter{
 #row1_two{
     float:right;
     margin-left: 15em;
+}
+.header{
+    display:grid;
+    grid-template-columns: 1fr,5fr;
+    grid-template-areas:
+    "home .";
+}
+.home{
+    grid-area: home;
 }

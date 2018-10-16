@@ -24,26 +24,25 @@ def dowload_tweets(request):
 def fil_tweets(request):
 	filter_tweets = filterForm.tweetFilter()
 	TweetObject = Tweets.objects.all()
-	print(TweetObject.count())
 	if request.method == "POST":
 		filt = filterForm.tweetFilter(request.POST)
 		if filt.is_valid():
-			print("filtering")
 			TweetObject = filtering(filt)
 			val = TweetObject.all().values()
 			i = 1
 			for objects in val:
-				Filtered_Tweets(Id = i,User_name=objects['User_name'],Screen_name=objects['Screen_name'],tweet_length=objects['tweet_length'],tweet_date=objects['tweet_date'],retweet_count=objects['retweet_count'],User_mentions=objects['User_mentions'],tweet_text=objects['tweet_text'],Url_text=objects['Url_text']).save()
-				i+=1
+				Filtered_Tweets(Id = i,user_id=obj['user_id'],favorites=obj['favorites'],friends=obj['friends'],followers=obj['followers'],User_name=obj['User_name'],Screen_name=obj['Screen_name'],
+					tweet_date=obj['tweet_date'],retweet_count=obj['retweet_count'],User_mentions=obj['User_mentions'],tweet_text=obj['tweet_text'],Url_text=obj['Url_text']).save()
+			i+=1
 			to_import = list(Filtered_Tweets.objects.all().values())
-			keys = 	to_import[0].keys()
-			with open('media/tweets.csv','w') as output_file:
-				dict_w = csv.DictWriter(output_file,keys)
-				dict_w.writeheader()
-				dict_w.writerows(to_import)
+			if len(to_import)>0:
+				keys = 	to_import[0].keys()
+				with open('media/tweets.csv','w') as output_file:
+					dict_w = csv.DictWriter(output_file,keys)
+					dict_w.writeheader()
+					dict_w.writerows(to_import)
 
 	TweetObject = Filtered_Tweets.objects.all()
-	print(TweetObject.count())
 	tweet_per_page = 5
 	current_page = int(request.GET.get('page',1))
 	limit = tweet_per_page*current_page
@@ -67,23 +66,19 @@ def tweets_list(request):
 		form = formKeyWords.TweetKeyWords(request.POST)
 		if form.is_valid():
 			all_Words = form.cleaned_data['keyWords']
-			# f = form.save(commit=False)
-			print(all_Words)
 			formKeyWords.TweetKeyWords.keyWords = ""
-			print(formKeyWords.TweetKeyWords.keyWords)
 			all_Words = re.sub('[!@$,-]', ' ', all_Words)
 			all_keyWords = [x.strip() for x in all_Words.split()]
 			conn = pymongo.MongoClient('localhost',27017)
 			db = conn.TwitterStream;
 			collections = db.tweets
-			print(all_keyWords)
 			stream_1 = tweetPopulate.StreamTweets()
 			# stream_1.stream(key_Words=all_keyWords)
 
 			for obj in collections.find():
-				Tweets(Id = obj['id'],User_name=obj['User_name'],Screen_name=obj['Screen_name'],tweet_length=obj['tweet_length'],tweet_date=obj['tweet_date'],retweet_count=obj['retweet_count'],User_mentions=obj['User_mentions'],tweet_text=obj['tweet_text'],Url_text=obj['Url_text']).save()
+				Tweets(Id = obj['id'],user_id=obj['user_id'],favorites=obj['favorites'],friends=obj['friends'],followers=obj['followers'],User_name=obj['User_name'],Screen_name=obj['Screen_name'],
+				tweet_date=obj['tweet_date'],retweet_count=obj['retweet_count'],User_mentions=obj['User_mentions'],tweet_text=obj['tweet_text'],Url_text=obj['Url_text']).save()
 			TweetObject = Tweets.objects.all()
-			# return http.HttpResponseRedirect('')
 
 	print(TweetObject.count())
 

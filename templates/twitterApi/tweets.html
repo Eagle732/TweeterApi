@@ -11,6 +11,10 @@
     </head>
 
 <body>
+    <div class="header">
+        <h2><a href="../">Home</a></h2>
+    </div>
+    <br>
     <h1>Tweets</h1>
 
     <form action="filtered_tweets" method="POST">
@@ -23,7 +27,7 @@
 
             <div class="row2_one">followers < :: {{filter_tweets.less_followers}}</div>
             <div class="row2_two">followers > :: {{filter_tweets.greater_followers}}</div>
-            <div class="row2_three">contains in char :: {{filter_tweets.contains_char}}</div>
+            <div class="row2_three">Search Text :: {{filter_tweets.contains_char}}</div>
             <div class="row2_four">Text Start with :: {{filter_tweets.Text_startWith}}</div>
 
             <div class="row3_one">Text End With :: {{filter_tweets.Text_endtWith}}</div>
@@ -49,7 +53,7 @@
             <tr>
                 <td>{{ obj.User_name }}</td>
                 <td>{{ obj.Screen_name }}</td>
-                <td>{{ obj.tweet_length }}</td>
+                <td>{{ obj.followers }}</td>
                 <td>{{ obj.tweet_date }}</td>
                 <td>{{ obj.retweet_count }}</td>
                 <td>{{ obj.User_mentions }}</td>

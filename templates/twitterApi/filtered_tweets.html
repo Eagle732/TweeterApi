@@ -11,6 +11,7 @@
         <meta charset="utf-8">
     </head>
 <body>
+    <h2><a href="../">Home</a></h2>
 <<h1>Tweets</h1>
 <div class="table_class">
     <table class="container" cellspacing="0" width="100%" border=5>
@@ -41,7 +42,7 @@
 <div class="pagination">
     {{pagination | safe}}
 </div>
-<div><a href="{{ MEDIA_URL }}{{ tweets.csv }} download">export</a>
-<p>{{ MEDIA_URL }}{{ tweets.csv }}</p>
+<div><a href="{{ MEDIA_URL }}media/tweets.csv">export</a>
+
 </body>
 </html>
