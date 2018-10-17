@@ -11,9 +11,12 @@ This MVP is made with Django backend framework.
 
 I have applied various keys fetching which you can change according to your wish.I have restricted tweets parameters.
   Filtering algorithm is applied in filteringAlgo.py file
-  parameters can be changed in models.py and tweetPopulate.py 
-  
-  
+  parameters can be changed in models.py and tweetPopulate.py
+
+
  And at last after filtering you can export filtered data in third page which will store tweets in CSV format in Media        
  directory
- 
+
+ # NOTE  :  I have used MongoDb as database so you have to install MONGODB before running the app.
+ # NOTE  :  You have to wait till fetching of tweets in background ,Number of tweets to be fetched can be changed in twitterApi/tweetPopulate.py file.
+ # NOTE  : run before making migrations pip intsall -r requirements.txt 
