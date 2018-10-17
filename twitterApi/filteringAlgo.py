@@ -34,7 +34,7 @@ def filtering(filtering_data):
     if filtering_data.cleaned_data['contains_char'] != "":
         # print(7)
         # print(filtered_tweets.count())
-        filtered_tweets = filtered_tweets.filter(tweet_text__icontains = filtering_data.cleaned_data['contains_char'])
+        filtered_tweets = filtered_tweets.filter(tweet_text__icontains = filtering_data.cleaned_data['contains_char'] , User_name__icontains = filtering_data.cleaned_data['contains_char'])
 
     if filtering_data.cleaned_data['Text_startWith'] != "":
         # print(8)

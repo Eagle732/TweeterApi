@@ -1,8 +1,2 @@
-Id,User_name,Screen_name,tweet_length,tweet_date,retweet_count,User_mentions,tweet_text,Url_text
-1,Sabeena Malik,SabeenaMalik,140,2018-10-16,0,Ajanta News,"RT @AjantaNews: MJ Akbar filed Defamation Suit against #MeToo Accuser, Ramani responds Firmly 
-
-#MJAkbar #PriyaRamani
-https://t.co/X3u8yDXQ…",
-2,Sabeena Malik,SabeenaMalik,140,2018-10-16,0,Ajanta News,"RT @AjantaNews: Bollywood Stars Who have been accused of Sexual Assault through #MeToo Campaign in India 
-
-#ajantanews #VintaNanda #Bollywo…",
+Id,user_id,User_name,Screen_name,tweet_date,retweet_count,User_mentions,tweet_text,Url_text,followers,favorites,friends
+1,1052438620513153025,Hemant,hemantc12,2018-10-17,1524,Nisha Bora,RT @NishaBora: #MeToo One of India's most feted artists alive. Padma Bhushan recipient. My molestor. Long post alert. @IndiaMeToo and so MA…,http://twitter.com/download/android,65,1899,67

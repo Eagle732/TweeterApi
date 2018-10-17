@@ -16,9 +16,10 @@
 <div class="table_class">
     <table class="container" cellspacing="0" width="100%" border=5>
         <thead  margin="5px">
+
             <th class="one_h">User_name</th>
             <th class="two_h">Screen_name</th>
-            <th class="three_h">length</th>
+            <th class="three_h">followers</th>
             <th class="four_h">Date</th>
             <th class="five_h">retweet</th>
             <th class="six_h">User_mentions</th>
@@ -29,7 +30,7 @@
         <tr>
             <td>{{ obj.User_name }}</td>
             <td>{{ obj.Screen_name }}</td>
-            <td>{{ obj.tweet_length }}</td>
+            <td>{{ obj.followers }}</td>
             <td>{{ obj.tweet_date }}</td>
             <td>{{ obj.retweet_count }}</td>
             <td>{{ obj.User_mentions }}</td>
@@ -42,7 +43,7 @@
 <div class="pagination">
     {{pagination | safe}}
 </div>
-<div><a href="{{ MEDIA_URL }}media/tweets.csv">export</a>
+<div class="export"><a href="{{ MEDIA_URL }}media/tweets.csv">export</a>
 
 </body>
 </html>

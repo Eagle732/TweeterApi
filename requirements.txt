@@ -5,3 +5,6 @@ django-pagedown==0.1.1
 django-tables2==2.0.1
 djongo==1.2.30
 tables==3.4.3
+tweepy==3.6.0
+requests==2.18.4
+pymongo==3.7.1

@@ -8,7 +8,7 @@ Created on Tue Oct  9 08:40:59 2018
 
 from pymongo import MongoClient,errors
 import json
-
+from bs4 import BeautifulSoup
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler,API,Stream
 import datetime
@@ -45,8 +45,8 @@ class MyStreamListener(StreamListener):
             Screen_name = t['user']['screen_name'] # The Screen name of the Tweet Author
 
             tweet_date = t['created_at']  # The timestamp of when the Tweet was created
-            if 'retweet_status' in t.keys():
-                retweet_count = t['retweet_status']['retweet_count']
+            if 'retweeted_status' in t.keys():
+                retweet_count = t['retweeted_status']['retweet_count']
             else:
                 retweet_count = 0
             if(len(t['entities']['user_mentions']) != 0):
@@ -55,26 +55,20 @@ class MyStreamListener(StreamListener):
                 User_mentions = "Nil"
 
             tweet_text = t['text']  # The entire body of the Tweet
-            Url_text = t['source']
-            if 'followers' in t['user'].keys():
-                followers = t['user']['followers']
-            else:
-                followers = 0
-
-            if 'favorites' in t['user'].keys():
-                favorites = t['user']['favorites']
-            else:
-                favorites = 0
-
-            if 'friends' in t['user'].keys():
-                friends = t['user']['friends']
-            else:
-                friends = 0
+            data = t['source']
+            soup = BeautifulSoup(data)
+            Url_text = soup.find('a').get('href')
+            followers = t['user']['followers_count']
+            favorites = t['user']['favourites_count']
+            friends = t['user']['friends_count']
             tweet_date = datetime.datetime.strptime(tweet_date, '%a %b %d %H:%M:%S +0000 %Y')
 
             tweet = { 'id':tweet_id,'user_id':user_id,'User_name':User_name, 'Screen_name':Screen_name, 'followers':followers,'favorites':favorites,'friends':friends,'tweet_date':tweet_date,'retweet_count':retweet_count,'User_mentions':User_mentions,'tweet_text':tweet_text,'Url_text':Url_text}
             collection.save(tweet)
-            pprint.pprint(tweet)
+            # if collection.count() <2:
+            #     print(t)
+            pprint.pprint(tweet_id)
+
             if collection.count() > 100:
                 return False
         except KeyboardInterrupt:

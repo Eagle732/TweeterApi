@@ -176,3 +176,8 @@ tr td input .filter{
 .home{
     grid-area: home;
 }
+.export{
+    font-size: 2em;
+    margin-left: 10em;
+    
+}

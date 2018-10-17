@@ -30,7 +30,7 @@ def fil_tweets(request):
 			TweetObject = filtering(filt)
 			val = TweetObject.all().values()
 			i = 1
-			for objects in val:
+			for obj in val:
 				Filtered_Tweets(Id = i,user_id=obj['user_id'],favorites=obj['favorites'],friends=obj['friends'],followers=obj['followers'],User_name=obj['User_name'],Screen_name=obj['Screen_name'],
 					tweet_date=obj['tweet_date'],retweet_count=obj['retweet_count'],User_mentions=obj['User_mentions'],tweet_text=obj['tweet_text'],Url_text=obj['Url_text']).save()
 			i+=1
