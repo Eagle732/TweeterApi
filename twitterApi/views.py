@@ -11,8 +11,8 @@ from .filteringAlgo import filtering
 
 def index(request):
 	form = formKeyWords.TweetKeyWords()
-	# Tweets.objects.all().delete()
-	# conn = pymongo.MongoClient('localhost',27017).TwitterStream.tweets.drop()
+	Tweets.objects.all().delete()
+	conn = pymongo.MongoClient('localhost',27017).TwitterStream.tweets.drop()
 	return render(request,'twitterApi/index.html',{'form':form})
 
 def dowload_tweets(request):
@@ -73,7 +73,7 @@ def tweets_list(request):
 			db = conn.TwitterStream;
 			collections = db.tweets
 			stream_1 = tweetPopulate.StreamTweets()
-			# stream_1.stream(key_Words=all_keyWords)
+			stream_1.stream(key_Words=all_keyWords)
 
 			for obj in collections.find():
 				Tweets(Id = obj['id'],user_id=obj['user_id'],favorites=obj['favorites'],friends=obj['friends'],followers=obj['followers'],User_name=obj['User_name'],Screen_name=obj['Screen_name'],
