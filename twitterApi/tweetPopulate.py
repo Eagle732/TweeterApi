@@ -24,10 +24,10 @@ collection = db.tweets
 language = ['en']
 #key_Words = ['#MeToo','#Durgapuja','#India','#Bollywood','#NetFlix']
 
-consumer_key = "7iELV7aYkxYoUsD5mG8p8GPqR"
-consumer_secret = "HxaGueioOE6FmjJvZjzTru5XgqnN55Oo6Ok7xX7Hr17u75UUWG"
-access_token = "2940370883-qD6fYwHRKJhgtKkeXH5E5meXSc2w36khw1pMdRJ"
-access_token_secret = "GqrRT9IKayLb8mdQQdjm5Mxn9kJbpwt3kuTeGJtKYdh3h"
+consumer_key = ""
+consumer_secret = ""
+access_token = ""
+access_token_secret = ""
 
 
 class MyStreamListener(StreamListener):
